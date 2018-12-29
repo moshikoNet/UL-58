@@ -44,9 +44,9 @@ public class Utils {
 	public static float calculatedRorakPressureTypeI(Shell secondaryShell,TankLayer tankLayerPrimary){
 
 		float radius =tankLayerPrimary.getLayerInsideDiameter()/2;
-		float lenght =tankLayerPrimary.getLayerLenght();
+		float lenght =tankLayerPrimary.getLayerLength();
 		float toleranceDiameter=tankLayerPrimary.getLayerInsideDiameterTolerance();
-		float toleranceLenght=tankLayerPrimary.getLayerLenghtTolerance();
+		float toleranceLenght=tankLayerPrimary.getLayerLengthTolerance();
 		float actualLenght=toleranceLenght+lenght;
 		float actualRadius=toleranceDiameter/2+radius;
 
@@ -74,7 +74,7 @@ public class Utils {
 	public static float calculatedRorakPressureTypeII(TankLayer tankLayer){
 
 
-		float actualLenght=tankLayer.getLayerLenghtTolerance()+tankLayer.getLayerLenght();
+		float actualLenght=tankLayer.getLayerLengthTolerance()+tankLayer.getLayerLength();
 		float actualRadius=(tankLayer.getLayerInsideDiameterTolerance()+tankLayer.getLayerInsideDiameter())/2;;
 
 		System.out.println("actual Lenght of tank's layer: "+actualLenght);
@@ -131,7 +131,7 @@ public class Utils {
 
 	public static float calculatedActualLayerLenght(TankLayer tankLayer){
 
-		float actualLenght = tankLayer.getLayerLenght() + tankLayer.getLayerLenghtTolerance();
+		float actualLenght = tankLayer.getLayerLength() + tankLayer.getLayerLengthTolerance();
 
 		return actualLenght;
 

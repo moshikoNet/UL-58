@@ -6,10 +6,10 @@ import com.moshiko.enums.TypeOfLayer;
 public class TankLayer {
 	
 	// required parameters
-	private float layerInsideDiameter;
-	private float layerInsideDiameterTolerance;
-	private float layerLenght;
-	private float layerLenghtTolerance;
+	private float layerInsideDiameter=0;
+	private float layerInsideDiameterTolerance=0;
+	private float layerLength=0;
+	private float layerLengthTolerance=0;
 
 	private Shell layerShell;
 	private Head LeftHead;
@@ -24,8 +24,8 @@ public class TankLayer {
 			TypeOfLayer typeOfLayer) {
 		this.layerInsideDiameter = layerInsideDiameter;
 		this.layerInsideDiameterTolerance = layerInsideDiameterTolerance;
-		this.layerLenght = layerLenght;
-		this.layerLenghtTolerance = layerLenghtTolerance;
+		this.layerLength = layerLenght;
+		this.layerLengthTolerance = layerLenghtTolerance;
 		this.layerShell = layerShell;
 		this.LeftHead = leftHead;
 		this.RightHead = rightHead;
@@ -52,20 +52,20 @@ public class TankLayer {
 		this.layerInsideDiameterTolerance = layerDiameterTolerance;
 	}
 
-	public float getLayerLenght() {
-		return layerLenght;
+	public float getLayerLength() {
+		return layerLength;
 	}
 
-	public void setLayerLenght(float layerLenght) {
-		this.layerLenght = layerLenght;
+	public void setLayerLength(float layerLenght) {
+		this.layerLength = layerLenght;
 	}
 
-	public float getLayerLenghtTolerance() {
-		return layerLenghtTolerance;
+	public float getLayerLengthTolerance() {
+		return layerLengthTolerance;
 	}
 
-	public void setLayerLenghtTolerance(float layerLenghtTolerance) {
-		this.layerLenghtTolerance = layerLenghtTolerance;
+	public void setLayerLengthTolerance(float layerLenghtTolerance) {
+		this.layerLengthTolerance = layerLenghtTolerance;
 	}
 
 	public Shell getLayerShell() {
@@ -105,8 +105,8 @@ public class TankLayer {
 	@Override
 	public String toString() {
 		return "TankLayer [layerInsideDiameter=" + layerInsideDiameter + ", layerInsideDiameterTolerance="
-				+ layerInsideDiameterTolerance + ", layerLenght=" + layerLenght + ", layerLenghtTolerance="
-				+ layerLenghtTolerance + ", layerShell=" + layerShell + ", layerLeftHead=" + LeftHead
+				+ layerInsideDiameterTolerance + ", layerLenght=" + layerLength + ", layerLenghtTolerance="
+				+ layerLengthTolerance + ", layerShell=" + layerShell + ", layerLeftHead=" + LeftHead
 				+ ", layerRightHead=" + RightHead + ", typeOfLayer=" + typeOfLayer + "]";
 	}
 

@@ -8,11 +8,11 @@ import com.moshiko.enums.Figure8_1TypeOfWeld;
 public class Head {
 	
 	// required parameters
-	private float headThickness;
-	private float headThicknessTolerance;
+	private float headThickness=0;
+	private float headThicknessTolerance=0;
 	private TypeOfHead headShape;
-	private float knuckleRadius;
-	private int numberOfHeadPieces;
+	private float knuckleRadius=0;
+	private int numberOfHeadPieces=4;
 	private HeadSide headSide;
 	private Figure8_1WeldingDetails headLongitudinalWeld;
 	private Figure9_1WeldingDetails headCircumferentialWeld;

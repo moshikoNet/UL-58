@@ -31,7 +31,7 @@ import com.moshiko.exceptions.MyApplicationException;
 import com.moshiko.utils.GlobalConstants;
 import com.moshiko.utils.Logger;
 import com.moshiko.utils.Utils;
-//TODO Daniel Is The King
+
 public class TankController {
 
 	float primaryShellActualThickness;
@@ -42,7 +42,7 @@ public class TankController {
 	String fileNameByTankProperties;
 
 
-	public TankController(Tank tank) {
+	public TankController(Tank tank) throws MyApplicationException {
 
 		this.primaryShellActualThickness = Utils.calculatedActualShellThickness(tank.getPrimaryTank());
 		this.secondaryShellActualThickness = Utils.calculatedActualShellThickness(tank.getSeconderyTank());
@@ -50,6 +50,75 @@ public class TankController {
 		this.primaryActualLenght = Utils.calculatedActualLayerLenght(tank.getPrimaryTank());
 		this.fileNameByTankProperties = Utils.fileNameByTankProperties(tank);
 
+	}
+
+
+	public boolean validateLayerShellActualThicknessParameters(TankLayer tankLayer) throws MyApplicationException{
+
+		// layer object equals to null validation
+		if (Utils.isTheValueEqualsToNull(tankLayer)==true){
+			throw new MyApplicationException("validateActualParameters EXCEPTION:THE TANK LAYER OBJECT EQUALS TO NULL",ErrorType.TANK_GENERAL_CARITARISTICS_ERROR);
+		}
+
+		//inside diameter validation
+		if (tankLayer.getLayerShell().getShellThickness()<0){
+			throw new MyApplicationException("validateActualParameters EXCEPTION:THE LAYER SHELL THICKNESS IS : \""+tankLayer.getLayerInsideDiameter() +"\" THAT WAS PROVIDED IS NOT VALID",ErrorType.TANK_GENERAL_CARITARISTICS_ERROR);
+		}
+
+		//inside diameter Tolerance validation
+		if (tankLayer.getLayerInsideDiameterTolerance()<0){
+			throw new MyApplicationException("validateActualParameters EXCEPTION:THE LAYER SHELL THICKNESS TOLERANCE IS : \""+tankLayer.getLayerInsideDiameter() +"\" THAT WAS PROVIDED IS NOT VALID",ErrorType.TANK_GENERAL_CARITARISTICS_ERROR);
+		}
+
+
+		return true;
+	}
+
+
+	public boolean validateActualDiameterLayerParameters(TankLayer tankLayer) throws MyApplicationException{
+
+
+
+		// layer object equals to null validation
+		if (Utils.isTheValueEqualsToNull(tankLayer)==true){
+			throw new MyApplicationException("validateActualDiameterLayerParameters EXCEPTION:THE TANK LAYER OBJECT EQUALS TO NULL",ErrorType.TANK_GENERAL_CARITARISTICS_ERROR);
+		}
+
+		//inside diameter validation
+		if (tankLayer.getLayerInsideDiameter()<0){
+			throw new MyApplicationException("validateActualDiameterLayerParameters EXCEPTION:THE LAYER INSIDE DIAMETER IS : \""+tankLayer.getLayerInsideDiameter() +"\" THAT WAS PROVIDED IS NOT VALID",ErrorType.TANK_GENERAL_CARITARISTICS_ERROR);
+		}
+
+		//inside diameter Tolerance validation
+		if (tankLayer.getLayerInsideDiameterTolerance()<0){
+			throw new MyApplicationException("validateActualDiameterLayerParameters EXCEPTION:THE LAYER INSIDE DIAMETER TOLERANCE IS : \""+tankLayer.getLayerInsideDiameter() +"\" THAT WAS PROVIDED IS NOT VALID",ErrorType.TANK_GENERAL_CARITARISTICS_ERROR);
+		}
+
+
+		return true;
+	}
+
+	public boolean validateActualLengthLayerParameters(TankLayer tankLayer) throws MyApplicationException{
+
+
+
+		// layer object equals to null validation
+		if (Utils.isTheValueEqualsToNull(tankLayer)==true){
+			throw new MyApplicationException("validateActualLengthLayerParameters EXCEPTION:THE TANK LAYER OBJECT EQUALS TO NULL",ErrorType.TANK_GENERAL_CARITARISTICS_ERROR);
+		}
+
+		//Length validation
+		if (tankLayer. getLayerLength()<0){
+			throw new MyApplicationException("validateActualLengthLayerParameters EXCEPTION:THE LAYER LENGTH IS : \""+tankLayer.getLayerLength() +"\" THAT WAS PROVIDED IS NOT VALID",ErrorType.TANK_GENERAL_CARITARISTICS_ERROR);
+		}
+
+		//Length Tolerance validation
+		if (tankLayer.getLayerLengthTolerance()<0){
+			throw new MyApplicationException("validateActualLengthLayerParameters EXCEPTION:THE LENGTH TOLERANCE IS : \""+tankLayer.getLayerLengthTolerance() +"\" THAT WAS PROVIDED IS NOT VALID",ErrorType.TANK_GENERAL_CARITARISTICS_ERROR);
+		}
+
+
+		return true;
 	}
 
 	public boolean validateShellThickness(Tank tank) throws MyApplicationException{
@@ -62,7 +131,7 @@ public class TankController {
 		}
 
 
-		if (this.primaryShellActualThickness<GlobalConstants.minSteelThicknessPrimaryTankPrimaryShell) 
+		if (this.primaryShellActualThickness < GlobalConstants.minSteelThicknessPrimaryTankPrimaryShell) 
 		{
 
 			conclusion= "Thickness of the primary shell is not as required as required in clause 5.1.2, Min. steel thickness:"+GlobalConstants.minSteelThicknessPrimaryTankPrimaryShell+"[mm]"+" ,declared: "+this.primaryShellActualThickness;
@@ -72,7 +141,7 @@ public class TankController {
 
 		}
 
-		if(this.secondaryShellActualThickness<GlobalConstants.minSteelThicknessSecondaryTankShell){
+		if(this.secondaryShellActualThickness < GlobalConstants.minSteelThicknessSecondaryTankShell){
 
 			conclusion= "Thickness of the secondary shell is not as required as required in clause 5.1.2, Min. steel thickness:"+GlobalConstants.minSteelThicknessSecondaryTankShell+"[mm]"+" ,declared: "+this.secondaryShellActualThickness;
 
@@ -86,7 +155,7 @@ public class TankController {
 			double RorakPressureTypeI = Utils.calculatedRorakPressureTypeI(tank.getTankSeconderyLayer().getLayerShell(), tank.getPrimaryTank());
 			double actualBurialPressure = Utils.calculatedBurialPressureTypeI(tank.getMaxBurialDepth(), tank.getSeconderyTank().getLayerShell(), tank.getTankPrimaryLayer());
 
-			if (RorakPressureTypeI<actualBurialPressure){
+			if (RorakPressureTypeI < actualBurialPressure){
 
 				conclusion ="TYPE I tank as defined in clause 5.2 will collapse because of over buckling pressure ";
 
@@ -190,7 +259,7 @@ public class TankController {
 
 
 			conclusion= "the tank's ratio between the diameter & lenght is as required in clause 4.4,calculated ratio :" + ratio;
-			
+
 			Utils.printToConsoleAndLog(this.fileNameByTankProperties, conclusion, LogType.VALIDATION_MATCH);
 
 			return true;
@@ -199,7 +268,7 @@ public class TankController {
 		conclusion= "the tank's ratio between the diameter & lenght is Not as required in clause 4.4, allowed ratio up to 8, calculated ratio:" + ratio ;
 
 		Utils.printToConsoleAndLog(this.fileNameByTankProperties, conclusion, LogType.VALIDATION_MISMATCH);
-		
+
 		return false;
 
 	}
@@ -220,21 +289,21 @@ public class TankController {
 		String info = "Primary Tank:\nLeft Head:\n";
 
 		Utils.printToConsoleAndLog(this.fileNameByTankProperties, info, LogType.INFO);
-		
+
 		isheadsRequired = checkHeadThicknessTable7_1(tank.getPrimaryTank(), tank.getPrimaryTank().getLayerLeftHead());
 
 		info="Right Head:";
-		
+
 		Utils.printToConsoleAndLog(this.fileNameByTankProperties, info, LogType.INFO);
-		
+
 		isheadsRequired = checkHeadThicknessTable7_1(tank.getPrimaryTank(), tank.getPrimaryTank().getLayerRightHead());
 
 		if (TypeOfTank.TYPE_I.name().equals(tank.getTypeOfTank().name())){
 
 			info = "Secondery Tank:\nLeft Head of TYPE_I:\n";
-			
+
 			Utils.printToConsoleAndLog(this.fileNameByTankProperties, info, LogType.INFO);
-			
+
 			isheadsRequired = checkHeadThicknessTable7_2(tank.getSeconderyTank(), tank.getSeconderyTank().getLayerLeftHead());
 
 			info ="Right Head of TYPE_I:";
